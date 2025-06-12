@@ -1,7 +1,7 @@
 ﻿using API_Day1.Context;
 using API_Day1.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; // Added for ToLowerAsync or similar, though not strictly needed for ToLower()
+using Microsoft.EntityFrameworkCore; 
 
 namespace API_Day1.Controllers
 {
@@ -18,7 +18,7 @@ namespace API_Day1.Controllers
         [HttpGet]
         public async Task<IActionResult> get()
         {
-            var courses = await _context.Courses.ToListAsync(); // Changed to async
+            var courses = await _context.Courses.ToListAsync(); 
             if (courses == null || !courses.Any())
             {
                 return NotFound("No courses found.");
@@ -55,7 +55,7 @@ namespace API_Day1.Controllers
             Course.Crs_Name = course.Crs_Name;
             Course.Crs_Description = course.Crs_Description;
             Course.Duration = course.Duration;
-            _context.Courses.Update(Course); // EF Core tracks changes, explicit Update is often not needed for tracked entities
+            _context.Courses.Update(Course); 
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -70,7 +70,7 @@ namespace API_Day1.Controllers
             }
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(getById), new { id = course.Id }, course); // Corrected to getById
+            return CreatedAtAction(nameof(getById), new { id = course.Id }, course); 
         }
 
         [HttpGet("{id:int}")]
